@@ -3,7 +3,7 @@ import math
 
 # sprawdzenie czy podana ilosc argumentow jest prawidlowa i zapisanie ich zawartosci do zmiennych
 
-k = 10
+k = 45
 trainSet = 'data/iris-trainingSet.txt'
 testSet = 'data/iris-testSet.txt'
 # if len(sys.argv) != 3:
@@ -98,7 +98,7 @@ def differentiation(iris1, trainlist):
         iris1.settype('virginica')
     else:
         raise TypeError('could not find max of three')
-    print(f"[{iris1.a}, {iris1.b}, {iris1.c}, {iris1.d}]\t{iris1.v_type}")
+    print(f"[{iris1.a}, {iris1.b}, {iris1.c}, {iris1.d}] - {iris1.v_type}")
 
 
 # otwieranie plików i zapisywanie ich zawartosci do tablic
@@ -106,5 +106,23 @@ def differentiation(iris1, trainlist):
 train = readfile(trainSet)
 test = readfile(testSet)
 
+print('Irysy po klasyfikacji:')
 for iriss in test:
     differentiation(iriss, train)
+
+czydalej = True
+while czydalej:
+    odp = input("czy chcesz sprawdzic innego irysa? (y/n)")
+    if odp == 'n':
+        print('dziekuje za skorzystanie z programu')
+        czydalej = False
+    elif odp == 'y':
+        odp2 = input('czy chcesz zmienic wartosc k? (y/n)')
+        if odp2 == 'y':
+            tmpk = input('podaj nowa wartosc k:')
+            k = int(tmpk)
+        print('podaj wymiary swojego irysa (po jednym)')
+        jeden, dwa, trzy, cztery = input('A: '), input('B: '), input('C: '), input('D: ')
+        testiris = Iris(jeden, dwa, trzy, cztery, 'D', 0)
+        print('sprawdzam...')
+        differentiation(testiris, train)
