@@ -1,16 +1,18 @@
-import sys
+# import sys
 import math
 
 # sprawdzenie czy podana ilosc argumentow jest prawidlowa i zapisanie ich zawartosci do zmiennych
 
-
-if len(sys.argv) != 3:
-    print('nieprawidlowa ilosc argumentow')
-    raise TypeError(f"nieprawidlowa ilosc argumentow\nwymagane: 3\notrzymane: {len(sys.argv)}")
-
-k = int(sys.argv[1])
-trainSet = sys.argv[2]
-testSet = sys.argv[3]
+k = 10
+trainSet = 'data/iris-trainingSet.txt'
+testSet = 'data/iris-testSet.txt'
+# if len(sys.argv) != 3:
+#     print('nieprawidlowa ilosc argumentow')
+#     raise TypeError(f"nieprawidlowa ilosc argumentow\nwymagane: 3\notrzymane: {len(sys.argv)}")
+#
+# k = int(sys.argv[1])
+# trainSet = sys.argv[2]
+# testSet = sys.argv[3]
 
 # utowrzenie klasy iris, na podstawie ktorej beda tworzenie obiekty opisujace te kwiaty
 
@@ -21,10 +23,10 @@ class Iris:
         self.v_type = n_type
 
     def __init__(self, a, b, c, d, v_type, distance):
-        self.a = a
-        self.b = b
-        self.c = c
-        self.d = d
+        self.a = float(a)
+        self.b = float(b)
+        self.c = float(c)
+        self.d = float(d)
         self.v_type = v_type
         self.distance = distance
 
@@ -48,9 +50,9 @@ def sortline(v_line):
 
 def readfile(path):
     arr = list()
-    with open(path, 'r') as text:
-        for line in text:
-            arr.append(sortline(line))
+    ffile = open(path, 'r')
+    for line in ffile:
+        arr.append(sortline(line))
     return arr
 
 
@@ -78,22 +80,16 @@ def max_of_three(a, b, c):
 
 def differentiation(iris1, trainlist):
     for i in trainlist:
-        if i.v_type == 'D':
-            i.distance = calculate(iris1, i)
-    sortedlist = sorted(trainlist, key=lambda iris: iris.distance)
-    klist = list()
-    for i in range(0, k):
-        klist.append(sortedlist[i])
+        i.distance = calculate(iris1, i)
+    sortedlist = sorted(trainlist, key=lambda iris: iris.distance)[:k]
     seto, ver, vir = 0, 0, 0
-    for i in klist:
+    for i in sortedlist:
         if i.v_type == 'setosa':
             seto = seto+1
         elif i.v_type == 'versicolor':
             ver = ver+1
         elif i.v_type == "virginica":
             vir = vir+1
-        else:
-            print('type cannot be resolved')
     if max_of_three(seto, ver, vir) == seto:
         iris1.settype('setosa')
     elif max_of_three(seto, ver, vir) == ver:
@@ -109,3 +105,6 @@ def differentiation(iris1, trainlist):
 
 train = readfile(trainSet)
 test = readfile(testSet)
+
+for iriss in test:
+    differentiation(iriss, train)
