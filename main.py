@@ -3,7 +3,7 @@ import math
 
 # sprawdzenie czy podana ilosc argumentow jest prawidlowa i zapisanie ich zawartosci do zmiennych
 
-k = 45
+k = 10
 trainSet = 'data/iris-trainingSet.txt'
 testSet = 'data/iris-testSet.txt'
 # if len(sys.argv) != 3:
@@ -27,7 +27,7 @@ class Iris:
         self.b = float(b)
         self.c = float(c)
         self.d = float(d)
-        self.v_type = v_type
+        self.v_type = v_type.replace("\n", "")
         self.distance = distance
 
 # sortowanie podanej linii z pliku i zapisywnie jej zawartosci do obiektu
@@ -90,6 +90,8 @@ def differentiation(iris1, trainlist):
             ver = ver+1
         elif i.v_type == "virginica":
             vir = vir+1
+        else:
+            print('could not resolve v_type')
     if max_of_three(seto, ver, vir) == seto:
         iris1.settype('setosa')
     elif max_of_three(seto, ver, vir) == ver:
