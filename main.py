@@ -3,9 +3,10 @@ import math
 
 # sprawdzenie czy podana ilosc argumentow jest prawidlowa i zapisanie ich zawartosci do zmiennych
 
-k = 10
+k = 5
 trainSet = 'data/iris-trainingSet.txt'
 testSet = 'data/iris-testSet.txt'
+accuracySet = 'data/accuracyTest.txt'
 # if len(sys.argv) != 3:
 #     print('nieprawidlowa ilosc argumentow')
 #     raise TypeError(f"nieprawidlowa ilosc argumentow\nwymagane: 3\notrzymane: {len(sys.argv)}")
@@ -107,10 +108,19 @@ def differentiation(iris1, trainlist):
 
 train = readfile(trainSet)
 test = readfile(testSet)
+acc = readfile(accuracySet)
 
 print('Irysy po klasyfikacji:')
 for iriss in test:
     differentiation(iriss, train)
+
+counter = 0
+for ii in range(len(test)):
+    if test[ii].v_type == acc[ii].v_type:
+        counter = counter + 1
+
+accuracy = counter/len(test)*100
+print(f'dokladnosc dzialania programu: {accuracy}%')
 
 czydalej = True
 while czydalej:
