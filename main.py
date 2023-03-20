@@ -129,7 +129,7 @@ while czydalej:
         print('dziekuje za skorzystanie z programu')
         czydalej = False
     elif odp == 'y':
-        odp2 = input('czy chcesz zmienic wartosc k? (y/n)')
+        odp2 = input(f'czy chcesz zmienic wartosc k?\naktualna wartosc: {k} (y/n)')
         if odp2 == 'y':
             tmpk = input('podaj nowa wartosc k:')
             k = int(tmpk)
